@@ -1,4 +1,4 @@
-def call() {
+def call(myPipeline) {
     pipeline {
         agent any()
         options {
