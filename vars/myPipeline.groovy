@@ -1,6 +1,6 @@
 def call(myPipeline) {
     pipeline {
-        agent any()
+        agent any
         options {
             skipDefaultCheckout true
         }
