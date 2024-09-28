@@ -1,6 +1,12 @@
 def call() {
-    myMvn = tool "M3"
     pipeline {
+        agent any()
+        options {
+            skipDefaultCheckout true
+        }
+        environment {
+            mvnHome = tool 'M3'
+        }
         stages{
             stage("Checkout") {
                 steps {
@@ -10,9 +16,16 @@ def call() {
             stage ("Build") {
                 steps {
                     withMaven {
-                        sh "mvn clean install"
-                    }
+                        sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore=true clean package"                    }
                 }
+            }
+        }
+        post {
+            // If Maven was able to run the tests, even if some of the test
+            // failed, record the test results and archive the jar file.
+            success {
+                junit '**/target/surefire-reports/TEST-*.xml'
+                archiveArtifacts 'target/*.jar'
             }
         }
     }
