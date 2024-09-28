@@ -10,7 +10,7 @@ def call(myPipeline) {
         stages{
             stage("Checkout") {
                 steps {
-                    git url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
+                    git url: 'git@github.com:Pantao42/JenkinsPipelineTest.git'
                 }
             }
             stage ("Build") {
