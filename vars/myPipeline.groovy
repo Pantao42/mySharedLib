@@ -17,9 +17,11 @@ def call(myPipeline) {
             }
             stage ("Build") {
                 steps {
-                   // withMaven {
-                        sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore=true clean package"                    }
-                //}
+                    withMaven(
+                            maven: 'M3'
+                    ) {
+                        sh "mvn -Dmaven.test.failure.ignore=true clean package"                    }
+                }
             }
         }
         post {
