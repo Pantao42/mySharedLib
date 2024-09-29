@@ -22,7 +22,7 @@ def call(myPipeline) {
                 steps {
                     withMaven(
                             maven: 'M3',
-                            globalMavenSettingsConfig: 'global-maven-settings',
+                            globalMavenSettingsConfig: 'global-maven-config',
                             mavenSettingsConfig: 'maven-settings',
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
                         sh "mvn clean package"
