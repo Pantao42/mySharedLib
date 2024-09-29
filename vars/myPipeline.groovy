@@ -11,7 +11,7 @@ def call(myPipeline) {
             stage("Checkout") {
                 steps {
                     git branch: 'feature/mypipe_test1',
-                            credentialsID: 'patao42atgithub',
+                            credentialsId: 'patao42atgithub',
                             changelog: false,
                             url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
                 }
