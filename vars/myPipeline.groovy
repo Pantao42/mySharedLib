@@ -18,7 +18,9 @@ def call(myPipeline) {
             stage ("Build") {
                 steps {
                     withMaven(
-                            maven: 'M3'
+                            maven: 'M3',
+                            globalMavenSettingsConfig: 'maven-global-settings',
+                            mavenSettingsConfig: 'maven-settings'
                     ) {
                         sh "mvn -Dmaven.test.failure.ignore=true clean package"                    }
                 }
