@@ -20,9 +20,10 @@ def call(myPipeline) {
                     withMaven(
                             maven: 'M3',
                             globalMavenSettingsConfig: 'maven-global-settings',
-                            mavenSettingsConfig: 'MySettings'
-                    ) {
-                        sh "mvn -Dmaven.test.failure.ignore=true clean package"                    }
+                            mavenSettingsConfig: 'maven-settings',
+                            mavenOpts: '-Dmaven.test.failure.ignore=true') {
+                        sh "mvn clean package"
+                    }
                 }
             }
         }
