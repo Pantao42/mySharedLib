@@ -12,15 +12,14 @@ def call(myPipeline) {
                 steps {
                     git branch: 'feature/mypipe_test1',
                             credentialsId: 'patao42atgithub',
-                            changelog: false,
                             url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
                 }
             }
             stage ("Build") {
                 steps {
-                    withMaven {
+                   // withMaven {
                         sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore=true clean package"                    }
-                }
+                //}
             }
         }
         post {
