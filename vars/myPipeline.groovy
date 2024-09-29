@@ -10,8 +10,12 @@ def call(myPipeline) {
         stages{
             stage("Checkout") {
                 steps {
-                    git credentialsId: 'patao42atgithub',
-                            url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
+                    checkout scmGit(
+                            branches: [[name: ${BRANCH_NAME}]],
+                            userRemoteConfigs: [[credentialsId:  'patao42atgithub',
+                                                 url: 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
+                    //git credentialsId: 'patao42atgithub',
+                      //      url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
                 }
             }
             stage ("Build") {
