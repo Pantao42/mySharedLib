@@ -21,7 +21,7 @@ def call(body) {
             }
             stage("Configure") {
                 steps {
-                    loadMavenSettings (name: "${mvnSettingsFile}")
+                    loadMavenSettings(name: "${mvnSettingsFile}")
                 }
             }
             stage ("Build") {
