@@ -6,7 +6,7 @@ def call(body) {
         }
         environment {
             mvnHome = tool 'M3'
-            mvnSettingsFile = "settings.xml"
+            mvnSettingsFile = "mysettings.xml"
         }
         stages{
             stage("Checkout") {
