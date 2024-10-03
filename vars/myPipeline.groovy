@@ -1,4 +1,4 @@
-def call(myPipeline) {
+def call(body) {
     pipeline {
         agent any
         options {
@@ -6,7 +6,7 @@ def call(myPipeline) {
         }
         environment {
             mvnHome = tool 'M3'
-            mvnSettings = "settings.xml"
+            mvnSettingsFile = "settings.xml"
         }
         stages{
             stage("Checkout") {
@@ -21,7 +21,7 @@ def call(myPipeline) {
             }
             stage("Configure") {
                 steps {
-                    loadMavenSettings (name: "${mvnSettings}")
+                    loadMavenSettings (name: "${mvnSettingsFile}")
                 }
             }
             stage ("Build") {

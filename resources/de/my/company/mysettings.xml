@@ -16,21 +16,4 @@
     <interactiveMode>true</interactiveMode>
     <usePluginRegistry>false</usePluginRegistry>
     <offline>false</offline>
-    <servers>
-        <server>
-            <id>synoserv.local</id>
-            <username>dirk</username>
-            <password>{tNcwG6tU4hsHAu2A04jIFbOh6vYFzzzpZFso9IPfQyE=}</password>
-        </server>
-        <server>
-            <id>release</id>
-            <username>deployment</username>
-            <password>blubb</password>
-        </server>
-        <server>
-            <id>snapshot</id>
-            <username>deployment</username>
-            <password>blubb</password>
-        </server>
-    </servers>
 </settings>
