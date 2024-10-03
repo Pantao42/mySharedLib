@@ -30,7 +30,7 @@ def call(body) {
                             maven: 'M3',
                             globalMavenSettingsConfig: 'global-maven-config',
                             //mavenSettingsConfig: 'maven-settings',
-                            mavenSettingsFilePath: "./${mvnSettings}",
+                            mavenSettingsFilePath: "./${mvnSettingsFile}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
                         sh "mvn clean package"
                     }
