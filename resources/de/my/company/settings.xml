@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <pluginGroups/>
+    <mirrors>
+        <mirror>
+            <id>local_central</id>
+            <name>Mein Central Mirror</name>
+            <url>http://192.168.1.166:8081/repository/maven-central/</url>
+            <mirrorOf>*,!3rdparty</mirrorOf>
+        </mirror>
+    </mirrors>
+    <proxies/>
+    <profiles/>
+    <activeProfiles/>
+    <localRepository>${user.home}/.m2/repository</localRepository>
+    <interactiveMode>true</interactiveMode>
+    <usePluginRegistry>false</usePluginRegistry>
+    <offline>false</offline>
+    <servers>
+        <server>
+            <id>synoserv.local</id>
+            <username>dirk</username>
+            <password>{tNcwG6tU4hsHAu2A04jIFbOh6vYFzzzpZFso9IPfQyE=}</password>
+        </server>
+        <server>
+            <id>release</id>
+            <username>deployment</username>
+            <password>blubb</password>
+        </server>
+        <server>
+            <id>snapshot</id>
+            <username>deployment</username>
+            <password>blubb</password>
+        </server>
+    </servers>
+</settings>

@@ -6,6 +6,7 @@ def call(myPipeline) {
         }
         environment {
             mvnHome = tool 'M3'
+            mvnSettings = "settings.xml"
         }
         stages{
             stage("Checkout") {
@@ -18,12 +19,18 @@ def call(myPipeline) {
                       //      url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
                 }
             }
+            stage("Configure") {
+                steps {
+                    loadMavenSettings (name: "${mvnSettings}")
+                }
+            }
             stage ("Build") {
                 steps {
                     withMaven(
                             maven: 'M3',
                             globalMavenSettingsConfig: 'global-maven-config',
-                            mavenSettingsConfig: 'maven-settings',
+                            //mavenSettingsConfig: 'maven-settings',
+                            mavenSettingsFilePath: "./${mvnSettings}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
                         sh "mvn clean package"
                     }
