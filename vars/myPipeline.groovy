@@ -12,7 +12,7 @@ def call(body) {
             stage("Checkout") {
                 steps {
                     checkout scmGit(
-                            branches: [[name: "${BRANCH_NAME}"]],
+                            branches: [[name: "${BRANCH-NAME}"]],
                             userRemoteConfigs: [[credentialsId:  'patao42atgithub',
                                                  url: 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
                     //git credentialsId: 'patao42atgithub',
