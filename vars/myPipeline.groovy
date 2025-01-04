@@ -22,10 +22,10 @@ def call(body) {
             stage("Configure") {
                 steps {
                     loadMavenSettings(fileName: "${mvnSettingsFile}")
-                // Java 19 konfigurieren
-               tool name: 'JDK19', type: 'jdk'
-               env.JAVA_HOME = tool 'JDK19'
-               env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"}
+                    // Java 19 konfigurieren
+                    tool name: 'JDK19', type: 'jdk'
+                    env.JAVA_HOME = tool 'JDK19'
+                    env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"}
             }
             stage ("Build") {
                 steps {
@@ -35,8 +35,13 @@ def call(body) {
                             //mavenSettingsConfig: 'maven-settings',
                             mavenSettingsFilePath: "./${mvnSettingsFile}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
-                        sh "mvn clean package"
+                        sh "mvn clean package pmd:pmd"
                     }
+                }
+            }
+            stage('PMD Analysis') {
+                steps {
+                    recordIssues(tools: [pmdParser(pattern: '**/target/pmd.xml')])
                 }
             }
         }
