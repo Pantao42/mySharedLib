@@ -8,26 +8,27 @@ def call(body) {
             mvnHome = tool 'M3'
             mvnSettingsFile = "mysettings.xml"
         }
-        stages{
+        stages {
             stage("Checkout") {
                 steps {
                     checkout scmGit(
                             branches: [[name: "${BRANCH_NAME}"]],
-                            userRemoteConfigs: [[credentialsId:  'patao42atgithub',
-                                                 url: 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
+                            userRemoteConfigs: [[credentialsId: 'patao42atgithub',
+                                                 url          : 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
                     //git credentialsId: 'patao42atgithub',
-                      //      url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
+                    //      url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
                 }
             }
             stage("Configure") {
                 steps {
                     loadMavenSettings(fileName: "${mvnSettingsFile}")
-                    // Java 19 konfigurieren
-                    tool name: 'JDK19', type: 'jdk'
-                    env.JAVA_HOME = tool 'JDK19'
-                    env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"}
+                    // OpenJDK 21 konfigurieren
+                    tool name: 'OPENJDK21', type: 'jdk'
+                    env.JAVA_HOME = tool 'OPENJDK21'
+                    env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+                }
             }
-            stage ("Build") {
+            stage("Build") {
                 steps {
                     withMaven(
                             maven: 'M3',
@@ -36,6 +37,7 @@ def call(body) {
                             mavenSettingsFilePath: "./${mvnSettingsFile}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
                         sh "mvn clean package pmd:pmd"
+//                        sh "mvn clean package"
                     }
                 }
             }
