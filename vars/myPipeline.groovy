@@ -34,16 +34,16 @@ def call(body) {
                             //mavenSettingsConfig: 'maven-settings',
                             mavenSettingsFilePath: "./${mvnSettingsFile}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
-                        sh "mvn clean package pmd:pmd"
-//                        sh "mvn clean package"
+//                        sh "mvn clean package pmd:pmd"
+                        sh "mvn clean package"
                     }
                 }
             }
-            stage('PMD Analysis') {
-                steps {
-                    recordIssues(tools: [pmdParser(pattern: '**/target/pmd.xml')])
-                }
-            }
+//            stage('PMD Analysis') {
+//                steps {
+//                    recordIssues(tools: [pmdParser(pattern: '**/target/pmd.xml')])
+//                }
+//            }
         }
         post {
             // If Maven was able to run the tests, even if some of the test
