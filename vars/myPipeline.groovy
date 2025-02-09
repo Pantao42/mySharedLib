@@ -19,13 +19,13 @@ def call(body) {
                     //      url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
                 }
             }
-//            stage("Configure") {
-//                    loadMavenSettings(fileName: "${mvnSettingsFile}")
+            stage("Configure") {
+                    loadMavenSettings(fileName: "${mvnSettingsFile}")
 //                    // OpenJDK 21 konfigurieren
 //                    tool name: 'OPENJDK21', type: 'jdk'
 //                    env.JAVA_HOME = tool 'OPENJDK21'
 //                    env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-//            }
+            }
             stage("Build") {
                 steps {
                     withMaven(
