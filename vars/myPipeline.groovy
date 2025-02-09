@@ -20,11 +20,13 @@ def call(body) {
                 }
             }
             stage("Configure") {
+                steps {
                     loadMavenSettings(fileName: "${mvnSettingsFile}")
 //                    // OpenJDK 21 konfigurieren
 //                    tool name: 'OPENJDK21', type: 'jdk'
 //                    env.JAVA_HOME = tool 'OPENJDK21'
 //                    env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+                }
             }
             stage("Build") {
                 steps {
