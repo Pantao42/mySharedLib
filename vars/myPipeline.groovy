@@ -7,39 +7,10 @@ def call(body) {
         environment {
             mvnHome = tool 'M3'
             mvnSettingsFile = "mysettings.xml"
+            myCondition = "true"
+
         }
         stages {
-            stage('Setup parameters') {
-                steps {
-                    script {
-                        properties([
-                                parameters([
-                                        choice(
-                                                choices: ['ONE', 'TWO'],
-                                                name: 'PARAMETER_01'
-                                        ),
-                                        booleanParam(
-                                                defaultValue: true,
-                                                description: 'Stage Condition',
-                                                name: 'myCondition'
-                                        ),
-                                        text(
-                                                defaultValue: '''
-                                this is a multi-line 
-                                string parameter example
-                                ''',
-                                                name: 'MULTI-LINE-STRING'
-                                        ),
-                                        string(
-                                                defaultValue: 'scriptcrunch',
-                                                name: 'STRING-PARAMETER',
-                                                trim: true
-                                        )
-                                ])
-                        ])
-                    }
-                }
-            }
             stage("Checkout") {
                 steps {
                     checkout scmGit(
@@ -50,7 +21,7 @@ def call(body) {
             }
             Stage("MyConditional") {
                 when {
-                    expression { return params.myCondition }
+                    expression { myCondition == "true" }
                 }
                 steps {
                     sh '''#!/bin/bash
