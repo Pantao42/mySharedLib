@@ -19,7 +19,7 @@ def call(body) {
                                                  url: 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
                 }
             }
-            Stage("MyConditional") {
+            stage("MyConditional") {
                 when {
                     environment name: 'myCondition', value: "true" }
                 }
