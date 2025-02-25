@@ -61,7 +61,7 @@ def call(body) {
             success {
                 junit '**/target/surefire-reports/TEST-*.xml'
                 archiveArtifacts 'target/*.jar'
-                recordIssues(tools: [pmdParser(pattern: '**/target/pmd.xml')]
+                recordIssues(tools: [pmdParser(pattern: '**/target/pmd.xml')])
             }
         }
     }
