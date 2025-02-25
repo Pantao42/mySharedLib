@@ -65,4 +65,3 @@ def call(body) {
             }
         }
     }
-}
