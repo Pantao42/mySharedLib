@@ -21,7 +21,7 @@ def call(body) {
             }
             Stage("MyConditional") {
                 when {
-                    environment name: 'myCondition' value:, "true" }
+                    environment name: 'myCondition', value: "true" }
                 }
                 steps {
                     echo 'Diese Stage wird nur ausgeführt, wenn myCondition true ist'
