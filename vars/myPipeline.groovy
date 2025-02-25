@@ -9,14 +9,53 @@ def call(body) {
             mvnSettingsFile = "mysettings.xml"
         }
         stages {
+            stage('Setup parameters') {
+                steps {
+                    script {
+                        properties([
+                                parameters([
+                                        choice(
+                                                choices: ['ONE', 'TWO'],
+                                                name: 'PARAMETER_01'
+                                        ),
+                                        booleanParam(
+                                                defaultValue: true,
+                                                description: 'Stage Condition',
+                                                name: 'myCondition'
+                                        ),
+                                        text(
+                                                defaultValue: '''
+                                this is a multi-line 
+                                string parameter example
+                                ''',
+                                                name: 'MULTI-LINE-STRING'
+                                        ),
+                                        string(
+                                                defaultValue: 'scriptcrunch',
+                                                name: 'STRING-PARAMETER',
+                                                trim: true
+                                        )
+                                ])
+                        ])
+                    }
+                }
+            }
             stage("Checkout") {
                 steps {
                     checkout scmGit(
                             branches: [[name: "${BRANCH_NAME}"]],
                             userRemoteConfigs: [[credentialsId: 'patao42atgithub',
                                                  url          : 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
-                    //git credentialsId: 'patao42atgithub',
-                    //      url: 'https://github.com/Pantao42/JenkinsPipelineTest.git'
+                }
+            }
+            Stage("MyConditional") {
+                when {
+                    expression { return params.myCondition }
+                }
+                steps {
+                    sh '''#!/bin/bash
+                    echo "Conditional Step" 
+                    '''
                 }
             }
             stage("Configure") {
@@ -53,6 +92,7 @@ def call(body) {
             success {
                 junit '**/target/surefire-reports/TEST-*.xml'
                 archiveArtifacts 'target/*.jar'
+                recordIssues(tools: [pmdParser(pattern: '**/target/pmd.xml')]
             }
         }
     }
