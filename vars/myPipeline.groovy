@@ -7,7 +7,7 @@ def call(body) {
         environment {
             mvnHome = tool 'M3'
             mvnSettingsFile = "mysettings.xml"
-            myCondition = "true"
+            myCondition = "false"
 
         }
         stages {
