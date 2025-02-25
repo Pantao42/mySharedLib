@@ -16,17 +16,15 @@ def call(body) {
                     checkout scmGit(
                             branches: [[name: "${BRANCH_NAME}"]],
                             userRemoteConfigs: [[credentialsId: 'patao42atgithub',
-                                                 url          : 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
+                                                 url: 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
                 }
             }
             Stage("MyConditional") {
                 when {
-                    expression { myCondition == "true" }
+                    environment name: 'myCondition' value:, "true" }
                 }
                 steps {
-                    sh '''#!/bin/bash
-                    echo "Conditional Step" 
-                    '''
+                    echo 'Diese Stage wird nur ausgeführt, wenn myCondition true ist'
                 }
             }
             stage("Configure") {
