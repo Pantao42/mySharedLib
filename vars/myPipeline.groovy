@@ -39,8 +39,9 @@ def call(body) {
                             maven: 'M3',
                             globalMavenSettingsConfig: 'global-maven-config',
                             mavenSettingsFilePath: "./${mvnSettingsFile}",
-                            mavenOpts: '-Dmaven.test.failure.ignore=true')
-                    sh "mvn clean verify"
+                            mavenOpts: '-Dmaven.test.failure.ignore=true') {
+                        sh "mvn clean verify"
+                    }
                 }
             }
             stage("Build") {
