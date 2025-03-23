@@ -35,6 +35,14 @@ def call(body) {
 //                    env.JAVA_HOME = tool 'OPENJDK21'
 //                    env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
                 }
+                steps {
+                    withMaven(
+                            maven: 'M3',
+                            globalMavenSettingsConfig: 'global-maven-config',
+                            mavenSettingsFilePath: "./${mvnSettingsFile}",
+                            mavenOpts: '-Dmaven.test.failure.ignore=true')
+                    sh "mvn clean verify"
+                }
             }
             stage("Build") {
                 steps {
@@ -45,7 +53,7 @@ def call(body) {
                             mavenSettingsFilePath: "./${mvnSettingsFile}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
 //                        sh "mvn clean package pmd:pmd"
-                        sh "mvn clean package"
+                        sh "mvn package"
                     }
                 }
             }
