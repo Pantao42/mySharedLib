@@ -34,8 +34,7 @@ def call(body) {
 //                    tool name: 'OPENJDK21', type: 'jdk'
 //                    env.JAVA_HOME = tool 'OPENJDK21'
 //                    env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-                }
-                steps {
+
                     withMaven(
                             maven: 'M3',
                             globalMavenSettingsConfig: 'global-maven-config',
