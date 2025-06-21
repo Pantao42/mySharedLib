@@ -14,7 +14,7 @@ def call(body) {
             skipDefaultCheckout true
             disableConcurrentBuilds()
             timeout(time: 120, unit: 'Minutes')
-            buildDiscarder(logRotator(numToKeepStr: '3'))
+//            buildDiscarder(logRotator(numToKeepStr: '3'))
             buildDiscarder BuildHistoryManager([[actions: [DeleteBuild()],
                                                  conditions: [BuildResult(matchAborted: true)]]])
             preserveStashes(buildCount: 1)
@@ -38,7 +38,7 @@ def call(body) {
                 when {
                     allOf {
                         not {
-                            changset "${changeSetPath}**/*"
+                            changeset "${changeSetPath}**/*"
                         }
                         not {
                             triggeredBy 'BuildUpstreamCause'
@@ -49,7 +49,7 @@ def call(body) {
                     }
                 }
                 steps {
-                    sript {
+                    script {
                         currentBuild.result = 'NOT_BUILT'
                         error "Build aborted, baucause changeSet does not include fules configured via changeSetPath"
                     }
