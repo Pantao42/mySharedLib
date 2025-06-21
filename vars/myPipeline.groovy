@@ -23,7 +23,7 @@ def call(body) {
             mvnHome = tool 'M3'
             mvnSettingsFile = "mysettings.xml"
             myCondition = "false"
-            changeSetPath = '${config.module_path}'
+            changeSetPath = '${config.module_path}' ?: ''
         }
         stages {
             stage("Checkout") {
@@ -39,7 +39,6 @@ def call(body) {
                     allOf {
                         not {
                             changeset "${changeSetPath}**/*"
-                            echo ${changeSetPath}
                         }
                         not {
                             triggeredBy 'BuildUpstreamCause'
@@ -52,6 +51,7 @@ def call(body) {
                 steps {
                     script {
                         currentBuild.result = 'NOT_BUILT'
+                        echo "${changeSetPath}"
                         error "Build aborted, baucause changeSet does not include fules configured via changeSetPath"
                     }
                 }
