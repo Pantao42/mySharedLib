@@ -25,6 +25,8 @@ def call(body) {
             myCondition = "false"
 
         }
+        String changeSetPath = System.getenv('module_path')
+        echo "Die übergebene Zeichenkette ist: ${changeSetPath}"
         stages {
             stage("Checkout") {
                 steps {
