@@ -55,10 +55,16 @@ def call(body) {
                     }
                 }
                 steps {
+                    sh '''
+                    echo "Aktuelles Verzeichnis:"
+                    pwd
+                    echo "Listing:"
+                    ls -al
+                    echo "Changeset-Pfad Überprüfung: ${changeSetPath}"
+                    '''
                     script {
                         currentBuild.result = 'NOT_BUILT'
-                        echo "${changeSetPath}"
-                        error "Build aborted, baucause changeSet does not include fules configured via changeSetPath"
+                        error "Build aborted, because changeSet does not include files configured via changeSetPath"
                     }
                 }
             }
