@@ -1,6 +1,12 @@
 import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod
 
 def call(body) {
+    // Konfiguration aus dem body Parameter extrahieren
+    def config = [:]
+    body.resolveStrategy = Closure.DELEGATE_FIRST
+    body.delegate = config
+    body()
+    
     pipeline {
         agent any
 //        def buildNum = BUILD_ID as Integer
@@ -23,7 +29,7 @@ def call(body) {
             mvnHome = tool 'M3'
             mvnSettingsFile = "mysettings.xml"
             myCondition = "false"
-            changeSetPath = '${config.module_path}'
+            changeSetPath = "${config.module_path ?: ''}"
         }
         stages {
             stage("Checkout") {
