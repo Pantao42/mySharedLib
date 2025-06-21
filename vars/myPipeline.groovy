@@ -14,7 +14,7 @@ def call(body) {
 //        def result = (buildNum) - (num)
 //        TZ=Europe/Berlin
         triggers {
-            pollSCM 'H/10 * * * *'
+            pollSCM 'H/15 * * * *'
         }
         options {
             skipDefaultCheckout true
