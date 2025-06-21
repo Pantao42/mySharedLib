@@ -39,6 +39,7 @@ def call(body) {
                     allOf {
                         not {
                             changeset "${changeSetPath}**/*"
+                            echo ${changeSetPath}
                         }
                         not {
                             triggeredBy 'BuildUpstreamCause'
