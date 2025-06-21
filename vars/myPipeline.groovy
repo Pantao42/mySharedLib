@@ -23,7 +23,7 @@ def call(body) {
             mvnHome = tool 'M3'
             mvnSettingsFile = "mysettings.xml"
             myCondition = "false"
-            changeSetPath = '${config.module_path}' ?: ''
+            changeSetPath = '${config.module_path}'
         }
         stages {
             stage("Checkout") {
