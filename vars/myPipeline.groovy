@@ -1,8 +1,23 @@
+import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod
+
 def call(body) {
     pipeline {
         agent any
+        def buildNum = BUILD_ID as Integer
+        def num = countBuildRemain as Integer
+        def result = (buildNum) - (num)
+        TZ=Europe/Berlin
+        triggers {
+            pollSCM 'H/10 * * * *'
+        }
         options {
             skipDefaultCheckout true
+            disableConcurrentBuilds()
+            timeout(time: 120, unit: 'Minutes')
+            buildDiscarder(logRotator(numToKeepStr: '3'))
+            buildDiscarder BuildHistoryManager([[actions: [DeleteBuild()],
+                                                 conditions: [BuildResult(matchAborted: true)]]])
+            preserveStashes(buildCount: 1)
         }
         environment {
             mvnHome = tool 'M3'
@@ -19,12 +34,23 @@ def call(body) {
                                                  url          : 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
                 }
             }
-            stage("MyConditional") {
+            stage("checkChangeset") {
                 when {
-                    environment name: 'myCondition', value: "true"
+                    allOf {
+                        not {
+                            changset "${changeSetPath}**/*"
+                        }
+                        not {
+                            triggeredBy 'BuildUpstreamCause'
+                        }
+                        not {
+                            triggeredBy 'TimerTrigger'
+                        }
+                    }
                 }
                 steps {
-                    echo 'Diese Stage wird nur ausgeführt, wenn myCondition true ist'
+                    currentBuild.result = 'NOT_BUILT'
+                    error "Build aborted, baucause changeSet does not include fules configured via changeSetPath"
                 }
             }
             stage("Configure") {
