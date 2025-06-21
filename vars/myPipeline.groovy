@@ -44,7 +44,7 @@ def call(body) {
                 when {
                     allOf {
                         not {
-                            changeset "${changeSetPath}**/*"
+                            changeset "**/*"
                         }
                         not {
                             triggeredBy 'BuildUpstreamCause'
