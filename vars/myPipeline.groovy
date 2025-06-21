@@ -3,10 +3,10 @@ import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod
 def call(body) {
     pipeline {
         agent any
-        def buildNum = BUILD_ID as Integer
-        def num = countBuildRemain as Integer
-        def result = (buildNum) - (num)
-        TZ=Europe/Berlin
+//        def buildNum = BUILD_ID as Integer
+//        def num = countBuildRemain as Integer
+//        def result = (buildNum) - (num)
+//        TZ=Europe/Berlin
         triggers {
             pollSCM 'H/10 * * * *'
         }
