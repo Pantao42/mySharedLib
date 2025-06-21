@@ -49,8 +49,10 @@ def call(body) {
                     }
                 }
                 steps {
-                    currentBuild.result = 'NOT_BUILT'
-                    error "Build aborted, baucause changeSet does not include fules configured via changeSetPath"
+                    sript {
+                        currentBuild.result = 'NOT_BUILT'
+                        error "Build aborted, baucause changeSet does not include fules configured via changeSetPath"
+                    }
                 }
             }
             stage("Configure") {
