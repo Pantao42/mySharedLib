@@ -13,7 +13,7 @@ def call(body) {
         options {
             skipDefaultCheckout true
             disableConcurrentBuilds()
-            timeout(time: 120, unit: 'Minutes')
+            timeout(time: 120, unit: 'MINUTES')
 //            buildDiscarder(logRotator(numToKeepStr: '3'))
             buildDiscarder BuildHistoryManager([[actions: [DeleteBuild()],
                                                  conditions: [BuildResult(matchAborted: true)]]])
