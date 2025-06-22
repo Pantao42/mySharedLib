@@ -37,14 +37,14 @@ def call(body) {
                     checkout scmGit(
                             branches: [[name: "${BRANCH_NAME}"]],
                             userRemoteConfigs: [[credentialsId: 'patao42atgithub',
-                                                 url          : 'https://github.com/Pantao42/JenkinsPipelineTest.git']])
+                                                 url          : 'https://github.com/Pantao42/multimodule.git']])
                 }
             }
             stage("checkChangeset") {
                 when {
                     allOf {
                         not {
-                            changeset "**/*"
+                            changeset "${changeSetPath}**/*"
                         }
                         not {
                             triggeredBy 'BuildUpstreamCause'
@@ -55,14 +55,14 @@ def call(body) {
                     }
                 }
                 steps {
-                    sh '''
-                    echo "Aktuelles Verzeichnis:"
-                    pwd
-                    echo "Listing:"
-                    ls -al
-                    echo "Changeset-Pfad Überprüfung: ${changeSetPath}"
-                    '''
                     script {
+                        sh """
+                        echo "Aktuelles Verzeichnis:"
+                        pwd
+                        echo "Listing:"
+                        ls -al
+                        echo "Changeset-Pfad Überprüfung: ${changeSetPath}"
+                        """
                         currentBuild.result = 'NOT_BUILT'
                         error "Build aborted, because changeSet does not include files configured via changeSetPath"
                     }
