@@ -52,6 +52,9 @@ def call(body) {
                         not {
                             triggeredBy 'TimerTrigger'
                         }
+                        not {
+                            triggeredBy 'UserIDCause'
+                        }
                     }
                 }
                 steps {
