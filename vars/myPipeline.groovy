@@ -82,9 +82,13 @@ def call(body) {
                     withMaven(
                             maven: 'M3',
                             globalMavenSettingsConfig: 'global-maven-config',
-                            mavenSettingsFilePath: "./${mvnSettingsFile}",
+                            mavenSettingsFilePath: "../${mvnSettingsFile}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
-                        sh "mvn clean verify"
+                        sh '''
+                            cd ${changeSetPath}
+                            mvn clean verify
+                            
+                           '''
                     }
                 }
             }
@@ -94,10 +98,13 @@ def call(body) {
                             maven: 'M3',
                             globalMavenSettingsConfig: 'global-maven-config',
                             //mavenSettingsConfig: 'maven-settings',
-                            mavenSettingsFilePath: "./${mvnSettingsFile}",
+                            mavenSettingsFilePath: "../${mvnSettingsFile}",
                             mavenOpts: '-Dmaven.test.failure.ignore=true') {
 //                        sh "mvn clean package pmd:pmd"
-                        sh "mvn package"
+                        sh '''
+                            mvn package
+                            pwd
+                        '''
                     }
                 }
             }
